@@ -1,25 +1,57 @@
 # GRID MCP Server
 
-A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server for using [GRID API](https://grid.is/spreadsheet-api) directly from [Claude Desktop](https://claude.ai/download).
+A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server for using [GRID API](https://grid.is/spreadsheet-api) directly from [Claude for Desktop](https://claude.ai/download).
 
 ## How to use the server
 
-1. Make sure you have [Node.js](https://nodejs.org/) installed
-2. If you haven't already, clone this repo
-3. Build the project by running `npm install`
-4. To use with Claude Desktop, open the app's settings file.
+> [!IMPORTANT]
+> To run this server, there are some prerequisites:
+>
+> - Install [Claude for Desktop](https://claude.ai/download), [Node.js](https://nodejs.org/en/download/), and [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+> - [Sign up for GRID](https://alpha.grid.is/), [upload a spreadsheet](https://alpha.grid.is/new), and save a copy of your API key
 
-   - On MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`.
-   - On Windows: `%APPDATA%/Claude/claude_desktop_config.json`.
+1. Clone this repo:
 
-   And add the following:
+   ```sh
+   git clone https://github.com/GRID-is/claude-mcp.git
+   ```
 
-   ```json
+2. Once that's complete, move into the new directory:
+
+   ```sh
+   cd claude-mcp
+   ```
+
+3. Next, set the project up using [npm](https://docs.npmjs.com/cli/v11/commands/npm):
+
+   ```sh
+   npm install
+   ```
+
+4. Now we need to configure Claude for Desktop to use this MCP server.
+
+   To do this, open Claude's app configuration file (or create if it doesn't exist).
+
+   On MacOS:
+
+   ```
+   ~/Library/Application\ Support/Claude/claude_desktop_config.json
+   ```
+
+   On Windows:
+
+   ```
+   %APPDATA%\Claude\claude_desktop_config.json
+   ```
+
+5. Add your server in the `mcpServers` key:
+
+   ```jsonc
    {
      "mcpServers": {
        "grid": {
          "command": "node",
-         "args": ["/path/to/grid-mcp/dist/index.js"],
+         "args": ["/ABSOLUTE/PATH/TO/grid-mcp/dist/index.js"],
          "env": {
            "GRID_API_KEY": "YOUR_API_KEY"
          }
@@ -28,25 +60,33 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
    }
    ```
 
+   Make sure to change `/ABSOLUTE/PATH/TO/grid-mcp` to the real location of the repo directory, and `YOUR_API_KEY` to your GRID API key.
+
+6. Quit Claude for Desktop and reopen it. Now you can ask Claude questions about your spreadsheet:
+
+   > Using the workbook with id xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, give me the sum of cells A1:C10
+
 ## Development
 
-Install dependencies:
+If you want to hack on the server code locally:
 
-```bash
-npm install
-```
+1. Install dependencies:
 
-Build the server:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run build
-```
+2. Build the server:
 
-For development with auto-rebuild:
+   ```bash
+   npm run build
+   ```
 
-```bash
-npm run watch
-```
+3. For development with auto-rebuild:
+
+   ```bash
+   npm run watch
+   ```
 
 ### Debugging
 
