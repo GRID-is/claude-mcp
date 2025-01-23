@@ -1,3 +1,4 @@
+import { type RequestInit } from "node-fetch";
 import { fetchWithAuth } from "./fetchWithAuth.js";
 
 export async function fetchPNG(endpoint: string, options: RequestInit = {}) {

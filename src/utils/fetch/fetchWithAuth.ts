@@ -1,3 +1,5 @@
+import fetch, { type RequestInit } from "node-fetch";
+
 const API_BASE = "https://api-alpha.grid.is";
 const apiKey = process.env["GRID_API_KEY"];
 

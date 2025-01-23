@@ -1,3 +1,4 @@
+import { type RequestInit } from "node-fetch";
 import { fetchWithAuth } from "./fetchWithAuth.js";
 
 export async function fetchJSON<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
