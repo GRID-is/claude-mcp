@@ -51,7 +51,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
      "mcpServers": {
        "grid": {
          "command": "node",
-         "args": ["/ABSOLUTE/PATH/TO/grid-mcp/dist/index.js"],
+         "args": ["/ABSOLUTE/PATH/TO/claude-mcp/dist/index.js"],
          "env": {
            "GRID_API_KEY": "YOUR_API_KEY"
          }
@@ -60,7 +60,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
    }
    ```
 
-   Make sure to change `/ABSOLUTE/PATH/TO/grid-mcp` to the real location of the repo directory, and `YOUR_API_KEY` to your GRID API key.
+   Make sure to change `/ABSOLUTE/PATH/TO/claude-mcp` to the real location of the repo directory, and `YOUR_API_KEY` to your GRID API key.
 
 6. Quit Claude for Desktop and reopen it. Now you can ask Claude questions about your spreadsheet:
 

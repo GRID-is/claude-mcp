@@ -1,11 +1,11 @@
 {
-  "name": "grid-mcp",
+  "name": "claude-mcp",
   "version": "0.1.0",
   "description": "A Model Context Protocol server",
   "private": true,
   "type": "module",
   "bin": {
-    "grid-mcp-server": "./dist/index.js"
+    "claude-mcp-server": "./dist/index.js"
   },
   "files": [
     "dist"
