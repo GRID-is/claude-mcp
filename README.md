@@ -8,7 +8,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
 > To run this server, there are some prerequisites:
 >
 > - Install [Claude for Desktop](https://claude.ai/download), [Node.js](https://nodejs.org/en/download/), and [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-> - [Sign up for GRID](https://alpha.grid.is/), [upload a spreadsheet](https://alpha.grid.is/new), and save a copy of [your API key](https://alpha.grid.is/account/advanced)
+> - [Sign up for GRID](https://alpha.grid.is/), [upload a spreadsheet](https://alpha.grid.is/new), and save a copy of [your API key](https://alpha.grid.is/account/api-key)
 
 1. Clone this repo:
 
