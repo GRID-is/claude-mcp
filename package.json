@@ -1,7 +1,7 @@
 {
   "name": "claude-mcp",
   "version": "0.1.0",
-  "description": "A Model Context Protocol server",
+  "description": "A Model Context Protocol server for using GRID's spreadsheet API",
   "private": true,
   "type": "module",
   "bin": {
