@@ -17,15 +17,15 @@
     "inspector": "npx @modelcontextprotocol/inspector dist/index.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.6.0",
-    "axios": "^1.7.9",
+    "@modelcontextprotocol/sdk": "^1.11.3",
+    "axios": "^1.9.0",
     "node-fetch": "^3.3.2",
-    "zod": "^3.24.1",
-    "zod-to-json-schema": "^3.24.1"
+    "zod": "^3.24.4",
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
-    "prettier": "3.4.2",
-    "typescript": "^5.3.3"
+    "prettier": "3.5.3",
+    "typescript": "^5.8.3"
   }
 }
