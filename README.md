@@ -46,7 +46,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
 
 5. Add your server in the `mcpServers` key:
 
-   ```jsonc
+   ```json
    {
      "mcpServers": {
        "grid": {
