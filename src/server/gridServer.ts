@@ -22,7 +22,7 @@ export const gridServer = new McpServer({
 gridServer.tool(
   "list_workbooks",
   "List the Excel workbooks and spreadsheets linked your GRID account",
-  { title: "List workbooks" },
+  { title: "List workbooks", readOnlyHint: true },
   handleListWorkbooks,
 );
 
@@ -31,7 +31,7 @@ gridServer.tool(
   "query_workbook",
   "Interact with a spreadsheet. Optionally, apply (update) values to cells. Read values from cells and formulas.",
   queryWorkbookInputSchema,
-  { title: "Query spreadsheet cells" },
+  { title: "Query spreadsheet cells", destructiveHint: false, idempotentHint: true },
   handleQueryWorkbook,
 );
 
@@ -40,6 +40,6 @@ gridServer.tool(
   "get_workbook_chart",
   "Render a chart using workbook data",
   workbookChartInputSchema,
-  { title: "Render chart" },
+  { title: "Render chart", readOnlyHint: true },
   handleGetWorkbookChart,
 );
