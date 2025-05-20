@@ -15,7 +15,7 @@ import {
  */
 export const gridServer = new McpServer({
   name: "grid-server",
-  version: "1.0.0",
+  version: "1.1.0",
 });
 
 // Add tool to query data within an Excel workbook.
