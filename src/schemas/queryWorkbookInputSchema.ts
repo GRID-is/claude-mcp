@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const QueryWorkbookInputSchema = z.object({
+/** Raw Zod shape for `query_workbook` request input. Used with `server.tool()`. */
+export const queryWorkbookInputSchema = {
   workbookId: z.string(),
   read: z.array(z.string()),
   apply: z
@@ -11,4 +12,11 @@ export const QueryWorkbookInputSchema = z.object({
       }),
     )
     .optional(),
-});
+};
+
+const queryWorkbookInputSchemaZodObject = z.object(queryWorkbookInputSchema);
+/**
+ * Complete Zod object for `query_workbook` request input. Used as a type for server tool callback
+ * functions.
+ */
+export type QueryWorkbookInputSchema = z.infer<typeof queryWorkbookInputSchemaZodObject>;

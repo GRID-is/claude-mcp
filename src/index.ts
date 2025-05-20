@@ -1,7 +1,7 @@
-import { GridServer } from "./server/gridServer.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
-const server = new GridServer();
-server.start().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+import { gridServer } from "./server/gridServer.js";
+
+// Receive messages on stdin, send messages on stdout.
+const transport = new StdioServerTransport();
+await gridServer.connect(transport);

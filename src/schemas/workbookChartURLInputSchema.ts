@@ -3,7 +3,8 @@ import { z } from "zod";
 const SupportedChartFormats = z.enum(["png", "svg"]);
 const SupportedChartTypes = z.enum(["line", "column"]);
 
-export const workbookChartURLInputSchema = z.object({
+/** Raw Zod shape for `get_workbook_chart_url` request input. Used with `server.tool()`. */
+export const workbookChartURLInputSchema = {
   // Required path parameter
   id: z.string().describe("Unique workbook id"),
 
@@ -22,4 +23,11 @@ export const workbookChartURLInputSchema = z.object({
     .string()
     .optional()
     .describe("Cell reference to use as the chart's title. Can also be plain text."),
-});
+};
+
+const workbookChartURLInputSchemaZodObject = z.object(workbookChartURLInputSchema);
+/**
+ * Complete Zod object for `get_workbook_chart_url` request input. Used as a type for server tool
+ * callback functions.
+ */
+export type WorkbookChartURLInputSchema = z.infer<typeof workbookChartURLInputSchemaZodObject>;

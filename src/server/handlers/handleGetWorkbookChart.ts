@@ -1,21 +1,23 @@
-import { workbookChartInputSchema } from "../../schemas/workbookChartInputSchema.js";
+import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+
+import type { WorkbookChartInputSchema } from "../../schemas/workbookChartInputSchema.js";
 import { fetchPNG } from "../../utils/fetch/fetchPNG.js";
 
-export async function handleGetWorkbookChart(args: Record<string, unknown> | undefined) {
-  const validated = workbookChartInputSchema.parse(args);
-
+export async function handleGetWorkbookChart(
+  args: WorkbookChartInputSchema,
+): Promise<CallToolResult> {
   try {
     const params = new URLSearchParams({
-      data: validated.data,
-      type: validated.type,
+      data: args.data,
+      type: args.type,
     });
-    if (validated.title) {
-      params.append("title", validated.title);
+    if (args.title) {
+      params.append("title", args.title);
     }
-    if (validated.labels) {
-      params.append("labels", validated.labels);
+    if (args.labels) {
+      params.append("labels", args.labels);
     }
-    const url = `/v1/workbooks/${validated.id}/chart.png?${params.toString()}`;
+    const url = `/v1/workbooks/${args.id}/chart.png?${params.toString()}`;
     const base64Image = await fetchPNG(url);
 
     return {

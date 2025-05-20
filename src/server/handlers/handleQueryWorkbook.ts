@@ -1,15 +1,19 @@
-import { QueryWorkbookInputSchema } from "../../schemas/queryWorkbookInputSchema.js";
+import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+
+import { type QueryWorkbookInputSchema } from "../../schemas/queryWorkbookInputSchema.js";
 import { fetchJSON } from "../../utils/fetch/fetchJSON.js";
 
-export async function handleQueryWorkbook(args: Record<string, unknown> | undefined) {
-  const validated = QueryWorkbookInputSchema.parse(args);
-
+export async function handleQueryWorkbook({
+  workbookId,
+  read,
+  apply,
+}: QueryWorkbookInputSchema): Promise<CallToolResult> {
   try {
-    const response = await fetchJSON(`/v1/workbooks/${validated.workbookId}/query`, {
+    const response = await fetchJSON(`/v1/workbooks/${workbookId}/query`, {
       method: "POST",
       body: JSON.stringify({
-        read: validated.read,
-        apply: validated.apply,
+        read,
+        apply,
         options: {
           structure: "table",
           values: "formatted",

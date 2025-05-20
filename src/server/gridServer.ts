@@ -1,66 +1,44 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+
+import { queryWorkbookInputSchema } from "../schemas/queryWorkbookInputSchema.js";
+import { workbookChartInputSchema } from "../schemas/workbookChartInputSchema.js";
+import { workbookChartURLInputSchema } from "../schemas/workbookChartURLInputSchema.js";
 import {
   handleGetWorkbookChart,
   handleGetWorkbookChartURL,
   handleQueryWorkbook,
-} from "./handlers/index.js";
-import { getWorkbookChart, getWorkbookChartURL, queryWorkbook } from "./tools/index.js";
+} from "../server/handlers/index.js";
 
 /**
  * MCP server for the GRID API.
  *
  * <https://modelcontextprotocol.io/docs/concepts/architecture>
  */
-export class GridServer {
-  private server: Server;
+export const gridServer = new McpServer({
+  name: "grid-server",
+  version: "1.0.0",
+});
 
-  constructor() {
-    this.server = new Server(
-      {
-        name: "grid-server",
-        version: "1.0.0",
-      },
-      {
-        capabilities: {
-          tools: {},
-          resources: {},
-        },
-      },
-    );
+// Add tool to query data within an Excel workbook.
+gridServer.tool(
+  "query_workbook",
+  "Interact with a spreadsheet. Optionally, apply (update) values to cells. Read values from cells and formulas.",
+  queryWorkbookInputSchema,
+  handleQueryWorkbook,
+);
 
-    this.setupHandlers();
-  }
+// Add tool to produce a chart from Excel workbook data.
+gridServer.tool(
+  "get_workbook_chart",
+  "Render a chart using workbook data",
+  workbookChartInputSchema,
+  handleGetWorkbookChart,
+);
 
-  private setupHandlers() {
-    // List available tools.
-    this.server.setRequestHandler(ListToolsRequestSchema, async () => {
-      return {
-        tools: [queryWorkbook, getWorkbookChart, getWorkbookChartURL],
-      };
-    });
-
-    // Handle tool calls
-    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
-      const { name, arguments: args } = request.params;
-
-      switch (name) {
-        case "query_workbook":
-          return await handleQueryWorkbook(args);
-        case "get_workbook_chart":
-          return await handleGetWorkbookChart(args);
-        case "get_workbook_chart_url":
-          return await handleGetWorkbookChartURL(args);
-      }
-
-      throw new Error(`Unknown tool: ${name}`);
-    });
-  }
-
-  async start() {
-    const transport = new StdioServerTransport();
-    await this.server.connect(transport);
-    console.error("GRID MCP Server running on stdio");
-  }
-}
+// Add tool to produce a URL to a chart containing Excel workbook data.
+gridServer.tool(
+  "get_workbook_chart_url",
+  "Get a URL that returns a chart image of workbook data",
+  workbookChartURLInputSchema,
+  handleGetWorkbookChartURL,
+);

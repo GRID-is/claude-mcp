@@ -1,25 +1,28 @@
-import { workbookChartURLInputSchema } from "../../schemas/workbookChartURLInputSchema.js";
+import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+
+import type { WorkbookChartURLInputSchema } from "../../schemas/workbookChartURLInputSchema.js";
 import { fetchJSON } from "../../utils/fetch/fetchJSON.js";
 
 interface chartURLResponse {
   url: string;
 }
 
-export async function handleGetWorkbookChartURL(args: Record<string, unknown> | undefined) {
-  const validated = workbookChartURLInputSchema.parse(args);
-
+export async function handleGetWorkbookChartURL(
+  args: WorkbookChartURLInputSchema,
+): Promise<CallToolResult> {
   try {
     const params = new URLSearchParams({
-      data: validated.data,
-      type: validated.type,
+      data: args.data,
+      type: args.type,
+      imageType: args.imageType,
     });
-    if (validated.title) {
-      params.append("title", validated.title);
+    if (args.title) {
+      params.append("title", args.title);
     }
-    if (validated.labels) {
-      params.append("labels", validated.labels);
+    if (args.labels) {
+      params.append("labels", args.labels);
     }
-    const url = `/v1/workbooks/${validated.id}/chart?${params.toString()}`;
+    const url = `/v1/workbooks/${args.id}/chart?${params.toString()}`;
     const json = await fetchJSON<chartURLResponse>(url);
 
     return {
