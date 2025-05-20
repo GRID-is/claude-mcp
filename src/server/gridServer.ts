@@ -2,7 +2,11 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 import { queryWorkbookInputSchema } from "../schemas/queryWorkbookInputSchema.js";
 import { workbookChartInputSchema } from "../schemas/workbookChartInputSchema.js";
-import { handleGetWorkbookChart, handleQueryWorkbook } from "../server/handlers/index.js";
+import {
+  handleGetWorkbookChart,
+  handleListWorkbooks,
+  handleQueryWorkbook,
+} from "../server/handlers/index.js";
 
 /**
  * MCP server for the GRID API.
@@ -13,6 +17,13 @@ export const gridServer = new McpServer({
   name: "grid-server",
   version: "1.0.0",
 });
+
+// Add tool to query data within an Excel workbook.
+gridServer.tool(
+  "list_workbooks",
+  "List the Excel workbooks and spreadsheets linked your GRID account",
+  handleListWorkbooks,
+);
 
 // Add tool to query data within an Excel workbook.
 gridServer.tool(
