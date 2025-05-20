@@ -53,7 +53,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io/introduction) server 
          "command": "node",
          "args": ["/ABSOLUTE/PATH/TO/claude-mcp/dist/index.js"],
          "env": {
-           "GRID_API_KEY": "YOUR_API_KEY"
+           "GRID_API_TOKEN": "YOUR_API_KEY"
          }
        }
      }

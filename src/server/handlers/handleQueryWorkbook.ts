@@ -1,26 +1,16 @@
+import Grid from "@grid-is/api";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
 import { type QueryWorkbookInputSchema } from "../../schemas/queryWorkbookInputSchema.js";
-import { fetchJSON } from "../../utils/fetch/fetchJSON.js";
 
 export async function handleQueryWorkbook({
   workbookId,
   read,
   apply,
 }: QueryWorkbookInputSchema): Promise<CallToolResult> {
+  const client = new Grid();
   try {
-    const response = await fetchJSON(`/v1/workbooks/${workbookId}/query`, {
-      method: "POST",
-      body: JSON.stringify({
-        read,
-        apply,
-        options: {
-          structure: "table",
-          values: "formatted",
-        },
-      }),
-    });
-
+    const response = await client.workbooks.query(workbookId, { read, apply });
     return {
       content: [
         {

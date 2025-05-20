@@ -1,30 +1,21 @@
+import Grid from "@grid-is/api";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
 import type { WorkbookChartInputSchema } from "../../schemas/workbookChartInputSchema.js";
-import { fetchPNG } from "../../utils/fetch/fetchPNG.js";
 
-export async function handleGetWorkbookChart(
-  args: WorkbookChartInputSchema,
-): Promise<CallToolResult> {
+export async function handleGetWorkbookChart({
+  id,
+  chart,
+}: WorkbookChartInputSchema): Promise<CallToolResult> {
+  const client = new Grid();
   try {
-    const params = new URLSearchParams({
-      data: args.data,
-      type: args.type,
-    });
-    if (args.title) {
-      params.append("title", args.title);
-    }
-    if (args.labels) {
-      params.append("labels", args.labels);
-    }
-    const url = `/v1/workbooks/${args.id}/chart.png?${params.toString()}`;
-    const base64Image = await fetchPNG(url);
-
+    const response = await client.workbooks.renderChart(id, { chart });
+    const data = Buffer.from(await response.arrayBuffer()).toString("base64");
     return {
       content: [
         {
           type: "image",
-          data: base64Image,
+          data,
           mimeType: "image/png",
         },
       ],

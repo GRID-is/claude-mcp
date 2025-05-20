@@ -2,12 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 import { queryWorkbookInputSchema } from "../schemas/queryWorkbookInputSchema.js";
 import { workbookChartInputSchema } from "../schemas/workbookChartInputSchema.js";
-import { workbookChartURLInputSchema } from "../schemas/workbookChartURLInputSchema.js";
-import {
-  handleGetWorkbookChart,
-  handleGetWorkbookChartURL,
-  handleQueryWorkbook,
-} from "../server/handlers/index.js";
+import { handleGetWorkbookChart, handleQueryWorkbook } from "../server/handlers/index.js";
 
 /**
  * MCP server for the GRID API.
@@ -33,12 +28,4 @@ gridServer.tool(
   "Render a chart using workbook data",
   workbookChartInputSchema,
   handleGetWorkbookChart,
-);
-
-// Add tool to produce a URL to a chart containing Excel workbook data.
-gridServer.tool(
-  "get_workbook_chart_url",
-  "Get a URL that returns a chart image of workbook data",
-  workbookChartURLInputSchema,
-  handleGetWorkbookChartURL,
 );

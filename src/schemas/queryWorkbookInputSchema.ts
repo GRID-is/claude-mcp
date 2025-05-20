@@ -11,7 +11,8 @@ export const queryWorkbookInputSchema = {
         value: z.union([z.number(), z.string(), z.boolean(), z.null()]),
       }),
     )
-    .optional(),
+    .nullish()
+    .default(null),
 };
 
 const queryWorkbookInputSchemaZodObject = z.object(queryWorkbookInputSchema);
