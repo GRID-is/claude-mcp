@@ -1,9 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
+import { labelSearchInputSchema } from "../schemas/labelSearchInputSchema.js";
 import { queryWorkbookInputSchema } from "../schemas/queryWorkbookInputSchema.js";
 import { workbookChartInputSchema } from "../schemas/workbookChartInputSchema.js";
 import {
   handleGetWorkbookChart,
+  handleLabelSearch,
   handleListWorkbooks,
   handleQueryWorkbook,
 } from "../server/handlers/index.js";
@@ -42,4 +44,13 @@ gridServer.tool(
   workbookChartInputSchema,
   { title: "Render chart", readOnlyHint: true },
   handleGetWorkbookChart,
+);
+
+// Add tool that performs semantic search on labels identified within a user's workbooks.
+gridServer.tool(
+  "search_labels",
+  "Search through a user's workbooks",
+  labelSearchInputSchema,
+  { title: "Search workbooks", readOnlyHint: true },
+  handleLabelSearch,
 );
